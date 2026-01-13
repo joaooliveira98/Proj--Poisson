@@ -1,0 +1,4 @@
+1-obter dados
+2-processar os dados
+2.1 - Obter média e variância
+3- Representar os dados usando a distribuição Poisson
