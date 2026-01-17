@@ -21,16 +21,33 @@ print(f"Variância das amostras: {np.var(dados_poisson):.2f}")
 
 2)Visualização da Distribuição de Poisson vs Normal
 
-from numpy import random
+"""
+import numpy
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 data = {
-  "normal": random.normal(loc=50, scale=7, size=1000),
-  "poisson": random.poisson(lam=50, size=1000)
+  "normal": numpy.random.normal(loc=50, scale=7, size=1000),
+  "poisson": numpy.random.poisson(lam=50, size=1000)
 }
 
-sns.displot(data, kind="kde")
+counts, bin_edges, _ =  plt.hist(data["normal"], bins=50)
+# Compute bin centers
+bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
+
+# Step 1: downsample to 25 points for smoothing
+downsample_step = 3
+x_ds = bin_centers[::downsample_step]
+y_ds = counts[::downsample_step]
+
+# Step 2: interpolate back to 50 points (align with original bins)
+x = bin_centers
+y = numpy.interp(x, x_ds, y_ds)
+
+# Step 3: ensure the maximum bin is preserved
+max_idx = numpy.argmax(counts)
+y[max_idx] = counts[max_idx]
+
+plt.plot(x,y)
+#plt.hist(data["poisson"], bins=50)
 
 plt.show()
-"""
