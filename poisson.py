@@ -26,7 +26,7 @@ import numpy
 import matplotlib.pyplot as plt
 
 data = {
-  "normal": numpy.random.normal(loc=50, scale=7, size=1000),
+  "normal": numpy.random.normal(loc=50, scale=7, size=10000),
   "poisson": numpy.random.poisson(lam=50, size=1000)
 }
 
